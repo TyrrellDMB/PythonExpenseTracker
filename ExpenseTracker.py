@@ -1,12 +1,13 @@
 import datetime
 import sqlite3
-from tkcalendar import DateEntry
-
-from tkinter import *
 import tkinter.messagebox as mb
 import tkinter.ttk as ttk
 
+from tkinter import *
+from tkcalendar import DateEntry
+
 # ---------------------- Functions ----------------------
+
 
 def list_all_expenses():
   global connector, table
@@ -17,6 +18,7 @@ def list_all_expenses():
 
   for values in data:
 	  table.insert('', END, values=values)
+
 
 def view_expense_details():
 	global table
@@ -34,6 +36,8 @@ def clear_fields():
   today_date = datetime.datetime.now().date()
   desc.set(''); payee.set('');amnt.set(0.0); MoP.set('Cash'), date.set_date(today_date)
   table.selection_remove(*table.selection())
+
+
 def remove_expenses():
 	if not table.selection():
 		mb.showerror("No record selected!", "Please select a record to delete!")
@@ -47,6 +51,7 @@ def remove_expenses():
 
 	list_all_expenses()
 	mb.showinfo('Record deleted successfully!', 'The record you wanted to delete has been deleted successfully')
+
 
 def remove_all_expenses():
 	surety = mb.askyesno('Are you sure?', 'Are you sure that you want to delete all the expense items from the database?', icon='warning')
@@ -62,6 +67,7 @@ def remove_all_expenses():
 		mb.showinfo('All Expenses deleted', 'All the expenses were successfully deleted')
 	else:
 		mb.showinfo('Ok then', 'The task was aborted and no expense was deleted!')
+
 def add_another_expense():
 	global date, payee, desc, amnt, MoP
 	global connector
